@@ -22,8 +22,9 @@ export default function Auth() {
         </nav>
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded ">
-            <h2 className="text-4xl text-white mb-8 font-semibold">Sign in</h2>
+            <h2 className="text-4xl text-white mb-8 font-semibold">{variant=== "login" ? "Sign in" : "Create an account"}</h2>
             <div className="flex flex-col gap-4">
+                {variant === "register" && (
               <Input
                 label="E-mail"
                 onChange={(e: any) => {
@@ -33,6 +34,7 @@ export default function Auth() {
                 type="email"
                 value={email}
               />
+                )}
               <Input
                 label="Username"
                 onChange={(e: any) => {
@@ -49,13 +51,14 @@ export default function Auth() {
                 id="password"
                 value={password}
               />
+
               <button className="bg-red-600 py-3 text-white rounded-md w-full hover:bg-red-700 transition">
-                Login
+                {variant === "login" ? "Login" : "Sign up"}
               </button>
               <p className="text-neutral-500 mt-12">
-                First time using Netflix?
-                <span className="text-white ml-1 hover:underline cursor-pointer">
-                  Create an account
+                {variant === "login" ? "First time using Netflix?" : "Already have an account?"}
+                <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer">
+                  {variant === "login" ? "Create an account" :"Sign in"}
                 </span>
               </p>
             </div>
