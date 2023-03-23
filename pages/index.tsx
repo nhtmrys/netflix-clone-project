@@ -8,6 +8,7 @@ import useMovieList from "@/hooks/useMovieList";
 import useFavorites from "@/hooks/useFavorites";
 import InfoModal from "@/components/InfoModal";
 import useInfoModal from "@/hooks/useInfoModal";
+import Head from "next/head";
 
 export default function Home() {
   /* const { data: user = [] } = useCurrentUser();*/
@@ -16,6 +17,11 @@ export default function Home() {
   const { isOpen, closeModal } = useInfoModal();
   return (
     <>
+      <Head>
+        <title>Netflix</title>
+        <meta name="description" content="Netflix homepage" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard />
