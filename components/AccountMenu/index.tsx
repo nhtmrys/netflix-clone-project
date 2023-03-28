@@ -1,5 +1,9 @@
 import { signOut } from "next-auth/react";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import { BsPencil } from "react-icons/bs";
+import Link from "next/link";
+import { MdOutlineAccountCircle } from "react-icons/md";
+import { BiHelpCircle } from "react-icons/bi";
 
 interface AccountMenuProps {
   visible?: boolean;
@@ -12,16 +16,43 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
       <div className="flex flex-col gap-3">
         <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
           <img className="w-8 rounded-md" src={user?.image} alt="" />
-          <p className="text-white text-sm group-hover/item:underline">
+          <p className="text-white text-lg group-hover/item:underline">
             {user?.name}
           </p>
         </div>
+        <Link
+          href="/profiles"
+          className="px-3 group/item flex flex-row gap-3 items-center w-full"
+        >
+          <BsPencil className="text-white w-8" />
+          <p className="text-white text-md group-hover/item:underline ">
+            Profile
+          </p>
+        </Link>
+        <Link
+          href="/account"
+          className="px-3 group/item flex flex-row gap-3 items-center w-full"
+        >
+          <MdOutlineAccountCircle className="text-white w-8" />
+          <p className="text-white text-md group-hover/item:underline">
+            Account
+          </p>
+        </Link>
+        <Link
+          href="/help"
+          className="px-3 group/item flex flex-row gap-3 items-center w-full"
+        >
+          <BiHelpCircle className="text-white w-8" />
+          <p className="text-white text-md group-hover/item:underline">
+            Help Center
+          </p>
+        </Link>
         <hr className="bg-gray-600 border-0 h-px my-4" />
         <div
           onClick={() => signOut()}
           className="px-3 text-center text-white hover:underline"
         >
-          Sign out
+          Sign out from Netflix
         </div>
       </div>
     </div>

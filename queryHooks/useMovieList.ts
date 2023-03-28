@@ -11,10 +11,10 @@ function useMovieList() {
       return response.json();
     },
     {
-      staleTime: 30000,
-      cacheTime: 50000,
+      staleTime: 3000,
+      cacheTime: 5000,
       refetchOnMount: false,
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
       refetchOnReconnect: false,
     }
   );

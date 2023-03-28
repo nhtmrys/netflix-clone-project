@@ -11,9 +11,9 @@ const MovieCard = ({ data }: MovieCardProps) => {
   const router = useRouter();
   const { openModal } = useInfoModal();
   return (
-    <div className="group bg-zinc-900 col-span relative h-[12vw]">
+    <div className="group bg-zinc-900 col-span relative  h-full sm:h-[12vw]">
       <img
-        className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:shadow-2xl w-full delay h-[12vw]"
+        className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:shadow-2xl w-full delay h-full sm:h-[12vw]"
         src={data.thumbnailUrl}
         alt="Thumbnail"
       />
@@ -49,9 +49,18 @@ const MovieCard = ({ data }: MovieCardProps) => {
               />
             </div>
           </div>
-          <p className="text-green-400 font-semibold mt-4">
-            New <span className="text-white">2023</span>
-          </p>
+          <div className="flex flex-row gap-2 mt-2">
+            <span className="text-white">{data?.title}</span>
+            <span className="text-white p-[0.5px] border-[1px]">18+</span>
+          </div>
+
+          {data?.year >= 2023 ? (
+            <p className="text-green-400 font-semibold mt-4">
+              New <span className="text-white">{data?.year}</span>
+            </p>
+          ) : (
+            <p className="text-white font-semibold mt-4">{data?.year}</p>
+          )}
 
           <div className="flex flex-row mt-4 gap-2 items-center">
             <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>

@@ -38,7 +38,7 @@ const InfoModal = ({ visible, onClose }: InfoModalProps) => {
         >
           <div className="relative h-96 ">
             <video
-              className="w-full brigtness-[60%] h-full object-cover"
+              className="w-full brightness-[60%] h-full object-cover"
               autoPlay
               muted
               loop
@@ -63,7 +63,9 @@ const InfoModal = ({ visible, onClose }: InfoModalProps) => {
           </div>
 
           <div className="px-12 py-8 ">
-            <p className="text-green-400 font-semibold text-lg ">New</p>
+            <p className="text-green-400 font-semibold text-lg ">
+              {data?.year}
+            </p>
             <p className="text-white text-lg">{data?.duration}</p>
             <p className="text-white text-lg">{data?.genre}</p>
             <p className="text-white text-lg">{data?.description}</p>

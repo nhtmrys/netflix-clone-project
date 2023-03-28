@@ -9,9 +9,9 @@ import useFavorites from "@/hooks/useFavorites";
 import InfoModal from "@/components/InfoModal";
 import useInfoModal from "@/hooks/useInfoModal";
 import Head from "next/head";
+import Footer from "@/components/Footer";
 
 export default function Home() {
-  /* const { data: user = [] } = useCurrentUser();*/
   const { data: movies = [] } = useMovieList();
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
@@ -26,9 +26,10 @@ export default function Home() {
       <Navbar />
       <Billboard />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={movies} />
-        <MovieList title="My List" data={favorites} />
+        <MovieList title="Trending Now" data={movies} id={"trendings"} />
+        <MovieList title="My List" data={favorites} id={"my-list"} />
       </div>
+      <Footer />
     </>
   );
 }
@@ -38,7 +39,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (!session) {
     return {
       redirect: {
-        destination: "/auth",
+        destination: "/login",
         permanent: false,
       },
     };

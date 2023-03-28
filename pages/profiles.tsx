@@ -9,7 +9,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (!session) {
     return {
       redirect: {
-        destination: "/auth",
+        destination: "/login",
         permanent: false,
       },
     };
@@ -22,6 +22,7 @@ export async function getServerSideProps(context: NextPageContext) {
 const Profiles = () => {
   const router = useRouter();
   const { data: user } = useCurrentUser();
+  const { isLoading: isLoading } = useCurrentUser();
   return (
     <>
       <Head>
@@ -50,11 +51,29 @@ const Profiles = () => {
             >
               <div className="group flex-row w-44 mx-auto">
                 <div className="w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
-                  <img src="/images/default-slate.png" alt="Profile" />
+                  {isLoading ? (
+                    <img
+                      alt="Profile"
+                      className="w-full h-full"
+                      src="/images/default-green.png"
+                    />
+                  ) : (
+                    <img
+                      src={user?.image}
+                      alt="Profile"
+                      className="w-full h-full"
+                    />
+                  )}
                 </div>
-                <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white ">
-                  {user?.name}
-                </div>
+                {isLoading ? (
+                  <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white ">
+                    ...
+                  </div>
+                ) : (
+                  <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white ">
+                    {user?.name}
+                  </div>
+                )}
               </div>
             </div>
           </div>

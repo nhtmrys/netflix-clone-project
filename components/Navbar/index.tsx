@@ -4,6 +4,7 @@ import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import MobileMenu from "@/components/MobileMenu";
 import AccountMenu from "@/components/AccountMenu";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import Link from "next/link";
 const TOP_OFFSET = 66;
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -50,14 +51,16 @@ const Navbar = () => {
           showBackground ? "bg-zinc-900 bg-opacity-90" : ""
         }`}
       >
-        <img className="h-4 lg:h-7" src="/images/logo.png" alt="" />
+        <Link href="/">
+          <img className="h-4 lg:h-7" src="/images/logo.png" alt="" />
+        </Link>
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
-          <NavbarItem label={"Home"} />
-          <NavbarItem label={"Series"} />
-          <NavbarItem label={"Films"} />
-          <NavbarItem label={"New & Popular"} />
-          <NavbarItem label={"My List"} />
-          <NavbarItem label={"Browse by languages"} />
+          <NavbarItem hrefUrl={"/"} label={"Home"} />
+          <NavbarItem hrefUrl={"/"} label={"Series"} />
+          <NavbarItem hrefUrl={"/"} label={"Films"} />
+          <NavbarItem hrefUrl={"/"} label={"New & Popular"} />
+          <NavbarItem hrefUrl={"#my-list"} label={"My List"} />
+          <NavbarItem hrefUrl={"/"} label={"Browse by languages"} />
         </div>
         <div
           onClick={() => setShowMobileMenu(!showMobileMenu)}

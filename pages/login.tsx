@@ -9,8 +9,11 @@ import useMovieList from "@/hooks/useMovieList";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { Simulate } from "react-dom/test-utils";
 import error = Simulate.error;
+import { BsChevronDown } from "react-icons/bs";
+import { TbWorld } from "react-icons/tb";
+import { Fragment } from "react";
 
-export default function Auth() {
+export default function Login() {
   const { error: user = [] } = useCurrentUser();
   //hooks
   const [email, setEmail] = useState("");
@@ -57,10 +60,20 @@ export default function Auth() {
         <meta name="description" content="Netflix homepage" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
+      <div className="relative h-full w-full bg-[url('/images/hero.jpeg')] bg-no-repeat bg-center bg-fixed bg-cover">
         <div className="bg-black w-full h-full lg:bg-opacity-50 ">
-          <nav className="px-12 py-5">
+          <nav className="max-w-7xl mx-auto py-5 flex justify-between">
             <img src="/images/logo.png" alt="Logo" className="h-12" />
+            <div className="text-white flex flex-row items-center gap-2 border-2 p-2 cursor-pointer">
+              <p>
+                <TbWorld />
+              </p>
+              <p className="hidden sm:block">English</p>
+
+              <p>
+                <BsChevronDown />
+              </p>
+            </div>
           </nav>
           <div className="flex justify-center">
             <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded ">

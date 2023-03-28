@@ -1,15 +1,19 @@
-import React from 'react';
+import React from "react";
 
 interface NavbarItemProps {
-    label: string;
+  label: string;
+  hrefUrl: string;
 }
 
-const NavbarItem = ({label}: NavbarItemProps) => {
-    return (
-        <div className="text-white cursor-pointer hover:text-gray-300 transition">
-            {label}
-        </div>
-    );
+const NavbarItem = ({ label, hrefUrl }: NavbarItemProps) => {
+  return (
+    <a
+      href={hrefUrl}
+      className="text-white cursor-pointer hover:text-gray-300 transition"
+    >
+      {label}
+    </a>
+  );
 };
 
 export default NavbarItem;

@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 export interface ModalStoreInterface {
   movieId?: string;
   isOpen: boolean;
