@@ -4,7 +4,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import Navbar from "@/components/Navbar";
 import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
-import useMovieList from "@/hooks/useMovieList";
+import useMovieList from "@/queryHooks/useMovieList";
 import useFavorites from "@/hooks/useFavorites";
 import InfoModal from "@/components/InfoModal";
 import useInfoModal from "@/hooks/useInfoModal";

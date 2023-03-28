@@ -3,12 +3,14 @@ import React from "react";
 // bu ne işe yarıyor?
 import { isEmpty } from "lodash";
 import MovieCard from "@/components/MovieCard";
+import useMovieList from "@/queryHooks/useMovieList";
 
 interface MovieListProps {
   data: Record<string, any>;
   title: string;
 }
 const MovieList = ({ data, title }: MovieListProps) => {
+  const { isLoading, error } = useMovieList();
   if (isEmpty(data)) {
     return null;
   }

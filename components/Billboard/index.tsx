@@ -1,15 +1,23 @@
 import React, { useCallback } from "react";
-import useBillboard from "@/hooks/useBillboard";
+import useBillboard from "@/queryHooks/useBillboard";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "@/components/PlayButton";
 import useInfoModal from "@/hooks/useInfoModal";
 
 const Billboard = () => {
-  const { data } = useBillboard();
+  const { isLoading, data } = useBillboard();
   const { openModal } = useInfoModal();
   const handleOpenModal = useCallback(() => {
     openModal(data?.id);
   }, [openModal, data?.id]);
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen bg-black flex items-center justify-center">
+        <img src="https://i.gifer.com/8Etj.gif" alt="" />
+      </div>
+    );
+  }
+
   return (
     <div className="relative h-[56.25vw]">
       <video

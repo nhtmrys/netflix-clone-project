@@ -5,13 +5,19 @@ import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Head from "next/head";
+import useMovieList from "@/hooks/useMovieList";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 export default function Auth() {
+  const { error: user = [] } = useCurrentUser();
   //hooks
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [variant, setVariant] = useState("login");
+  const [error, setError] = useState("");
 
   //burayı iyi anlamadım
   const toggleVariant = useCallback(() => {
