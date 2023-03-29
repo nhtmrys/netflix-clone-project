@@ -12,6 +12,8 @@ import error = Simulate.error;
 import { BsChevronDown } from "react-icons/bs";
 import { TbWorld } from "react-icons/tb";
 import { Fragment } from "react";
+import LanguageSelect from "@/components/LanguageSelect";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const { error: user = [] } = useCurrentUser();
@@ -21,6 +23,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [variant, setVariant] = useState("login");
   const [error, setError] = useState("");
+  const [showLanguagePopup, setShowLanguagePopup] = useState(false);
 
   //burayı iyi anlamadım
   const toggleVariant = useCallback(() => {
@@ -33,7 +36,7 @@ export default function Login() {
       await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/profiles",
+        callbackUrl: locale === "en" ? "/profiles" : "/tr/profiles",
       });
     } catch (err) {
       console.log(err);
@@ -53,6 +56,9 @@ export default function Login() {
     }
   }, [email, name, password, login]);
 
+  const router = useRouter();
+  const { locale } = router;
+
   return (
     <>
       <Head>
@@ -64,26 +70,38 @@ export default function Login() {
         <div className="bg-black w-full h-full lg:bg-opacity-50 ">
           <nav className="max-w-7xl mx-auto py-5 flex justify-between">
             <img src="/images/logo.png" alt="Logo" className="h-12" />
-            <div className="text-white flex flex-row items-center gap-2 border-2 p-2 cursor-pointer">
+            <div
+              onClick={() => setShowLanguagePopup(!showLanguagePopup)}
+              className="text-white flex flex-row items-center gap-2 border-2 p-2 cursor-pointer"
+            >
               <p>
                 <TbWorld />
               </p>
-              <p className="hidden sm:block">English</p>
+              <p className="hidden sm:block">
+                {locale === "en" ? "English" : "Türkçe"}
+              </p>
 
               <p>
                 <BsChevronDown />
               </p>
+              <LanguageSelect visible={showLanguagePopup} locale={locale} />
             </div>
           </nav>
           <div className="flex justify-center">
             <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded ">
               <h2 className="text-4xl text-white mb-8 font-semibold">
-                {variant === "login" ? "Sign in" : "Create an account"}
+                {variant === "login"
+                  ? locale === "en"
+                    ? "Sign in"
+                    : "Giriş Yap"
+                  : locale === "en"
+                  ? "Create an account"
+                  : "Hesap Oluştur"}
               </h2>
               <div className="flex flex-col gap-4">
                 {variant === "register" && (
                   <Input
-                    label="Username"
+                    label={locale === "en" ? "Username" : "Kullanıcı Adı"}
                     onChange={(e: any) => {
                       setName(e.target.value);
                     }}
@@ -93,7 +111,7 @@ export default function Login() {
                 )}
 
                 <Input
-                  label="E-mail"
+                  label={locale === "en" ? "E-mail" : "E-posta"}
                   onChange={(e: any) => {
                     setEmail(e.target.value);
                   }}
@@ -102,7 +120,7 @@ export default function Login() {
                   value={email}
                 />
                 <Input
-                  label="Password"
+                  label={locale === "en" ? "Password" : "Şifre"}
                   onChange={(e: any) => {
                     setPassword(e.target.value);
                   }}
@@ -115,12 +133,21 @@ export default function Login() {
                   onClick={variant === "login" ? login : register}
                   className="bg-red-600 py-3 text-white rounded-md w-full hover:bg-red-700 transition"
                 >
-                  {variant === "login" ? "Login" : "Sign up"}
+                  {variant === "login"
+                    ? locale === "en"
+                      ? "Login"
+                      : "Giriş Yap"
+                    : locale === "en"
+                    ? "Sign up"
+                    : "Kayıt Ol"}
                 </button>
                 <div className="flex flex-row items-center gap-4 mt-8 justify-center">
                   <div
                     onClick={() =>
-                      signIn("google", { callbackUrl: "/profiles" })
+                      signIn("google", {
+                        callbackUrl:
+                          locale === "en" ? "/profiles" : "/tr/profiles",
+                      })
                     }
                     className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
                   >
@@ -128,7 +155,10 @@ export default function Login() {
                   </div>
                   <div
                     onClick={() =>
-                      signIn("github", { callbackUrl: "/profiles" })
+                      signIn("github", {
+                        callbackUrl:
+                          locale === "en" ? "/profiles" : "/tr/profiles",
+                      })
                     }
                     className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
                   >
@@ -138,13 +168,23 @@ export default function Login() {
 
                 <p className="text-neutral-500 mt-12">
                   {variant === "login"
-                    ? "First time using Netflix?"
-                    : "Already have an account?"}
+                    ? locale === "en"
+                      ? "First time using Netflix?"
+                      : "Netflix'i ilk kez mi kullanıyorsunuz?"
+                    : locale === "en"
+                    ? "Already have an account?"
+                    : "Zaten bir hesabınız var mı?"}
                   <span
                     onClick={toggleVariant}
                     className="text-white ml-1 hover:underline cursor-pointer"
                   >
-                    {variant === "login" ? "Create an account" : "Sign in"}
+                    {variant === "login"
+                      ? locale === "en"
+                        ? "Create an account"
+                        : "Hesap oluştur"
+                      : locale === "en"
+                      ? "Sign in"
+                      : "Giriş yap"}
                   </span>
                 </p>
               </div>

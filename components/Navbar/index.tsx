@@ -8,12 +8,14 @@ import Link from "next/link";
 import NotificationModal from "@/components/NotificationModal";
 import useMovieList from "@/queryHooks/useMovieList";
 import { array } from "prop-types";
+import { useRouter } from "next/router";
 const TOP_OFFSET = 66;
 interface MovieListProps {
   movies: Record<string, any>;
+  locale: any;
 }
 
-const Navbar = ({ movies }: MovieListProps) => {
+const Navbar = ({ movies, locale }: MovieListProps) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showNotificationMenu, setShowNotificationMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -62,6 +64,7 @@ const Navbar = ({ movies }: MovieListProps) => {
     });
     setFilteredData(filteredData);
   };
+
   return (
     <nav className="w-full fixed z-40">
       <div
@@ -73,12 +76,38 @@ const Navbar = ({ movies }: MovieListProps) => {
           <img className="h-4 lg:h-7" src="/images/logo.png" alt="" />
         </Link>
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
-          <NavbarItem hrefUrl={"/"} label={"Home"} />
-          <NavbarItem hrefUrl={"/"} label={"Series"} />
-          <NavbarItem hrefUrl={"/"} label={"Films"} />
-          <NavbarItem hrefUrl={"/"} label={"New & Popular"} />
-          <NavbarItem hrefUrl={"#my-list"} label={"My List"} />
-          <NavbarItem hrefUrl={"/"} label={"Browse by languages"} />
+          <NavbarItem
+            hrefUrl={locale === "tr" ? "/tr" : "/"}
+            label={locale === "tr" ? "Anasayfa" : "Home"}
+            locale={locale}
+          />
+          <NavbarItem
+            hrefUrl={"/"}
+            label={locale === "tr" ? "Diziler" : "Series"}
+            locale={locale}
+          />
+          <NavbarItem
+            hrefUrl={"/"}
+            label={locale === "tr" ? "Filmler" : "Films"}
+            locale={locale}
+          />
+          <NavbarItem
+            hrefUrl={"/"}
+            label={locale === "tr" ? "Yeni ve Popüler" : "New & Popular"}
+            locale={locale}
+          />
+          <NavbarItem
+            hrefUrl={"#my-list"}
+            label={locale === "tr" ? "Listem" : "My List"}
+            locale={locale}
+          />
+          <NavbarItem
+            hrefUrl={"/"}
+            label={
+              locale === "tr" ? "Dillere göre arama" : "Browse by languages"
+            }
+            locale={locale}
+          />
         </div>
         <div
           onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -94,14 +123,13 @@ const Navbar = ({ movies }: MovieListProps) => {
         <div className="flex flex-row ml-auto gap-7 items-center">
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
             <div className="search-container">
-              <form action="/search" method="get">
+              <form>
                 <input
                   className="search expandright"
                   id="searchright"
                   type="search"
                   value={searchTerm}
                   onChange={handleChange}
-                  placeholder="Search"
                 />
                 <label className="button searchbutton" htmlFor="searchright">
                   <span className="mglass">&#9906;</span>
@@ -120,7 +148,9 @@ const Navbar = ({ movies }: MovieListProps) => {
                           alt=""
                         />
                         <p className="text-white text-sm group-hover/item:underline">
-                          Watch now {filter?.title}
+                          {locale === "en"
+                            ? "Watch now " + filter?.title
+                            : filter?.title + " izle"}
                         </p>
                       </div>
                     </a>
@@ -134,7 +164,7 @@ const Navbar = ({ movies }: MovieListProps) => {
             className="text-gray-200 hover:text-gray-300 cursor-pointer transition"
           >
             <BsBell />
-            <NotificationModal visible={showNotificationMenu} />
+            <NotificationModal visible={showNotificationMenu} locale={locale} />
           </div>
           <div
             onClick={() => setShowAccountMenu(!showAccountMenu)}
@@ -149,7 +179,7 @@ const Navbar = ({ movies }: MovieListProps) => {
                 showAccountMenu ? "rotate-180" : "rotate-0"
               }`}
             />
-            <AccountMenu visible={showAccountMenu} />
+            <AccountMenu locale={locale} visible={showAccountMenu} />
           </div>
         </div>
       </div>

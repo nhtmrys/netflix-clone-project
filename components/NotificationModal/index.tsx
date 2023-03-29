@@ -8,9 +8,11 @@ import useMovieList from "@/queryHooks/useMovieList";
 
 interface NotificationModalProps {
   visible?: boolean;
+  locale?: string;
 }
-const NotificationModal = ({ visible }: NotificationModalProps) => {
+const NotificationModal = ({ visible, locale }: NotificationModalProps) => {
   /*  const { data: user } = useCurrentUser();*/
+
   const { data: movies = [] } = useMovieList();
   if (!visible) return null;
   return (
@@ -27,7 +29,9 @@ const NotificationModal = ({ visible }: NotificationModalProps) => {
                   alt=""
                 />
                 <p className="text-white text-sm group-hover/item:underline">
-                  Watch now {movie?.title}
+                  {locale === "en"
+                    ? "Watch now " + movie?.title
+                    : movie?.title + " izle"}
                 </p>
               </div>
             </a>

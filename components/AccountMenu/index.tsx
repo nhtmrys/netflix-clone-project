@@ -7,8 +7,9 @@ import { BiHelpCircle } from "react-icons/bi";
 
 interface AccountMenuProps {
   visible?: boolean;
+  locale: any;
 }
-const AccountMenu = ({ visible }: AccountMenuProps) => {
+const AccountMenu = ({ visible, locale }: AccountMenuProps) => {
   const { data: user } = useCurrentUser();
   if (!visible) return null;
   return (
@@ -26,7 +27,7 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
         >
           <BsPencil className="text-white w-8" />
           <p className="text-white text-md group-hover/item:underline ">
-            Profile
+            {locale === "en" ? "Profile" : "Profil"}
           </p>
         </Link>
         <Link
@@ -35,7 +36,7 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
         >
           <MdOutlineAccountCircle className="text-white w-8" />
           <p className="text-white text-md group-hover/item:underline">
-            Account
+            {locale === "en" ? "Account" : "Hesap"}
           </p>
         </Link>
         <Link
@@ -44,7 +45,7 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
         >
           <BiHelpCircle className="text-white w-8" />
           <p className="text-white text-md group-hover/item:underline">
-            Help Center
+            {locale === "en" ? "Help Center" : "Yardım Merkezi"}
           </p>
         </Link>
         <hr className="bg-gray-600 border-0 h-px my-4" />
@@ -52,7 +53,7 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
           onClick={() => signOut()}
           className="px-3 text-center text-white hover:underline"
         >
-          Sign out from Netflix
+          {locale === "en" ? "Sign out from Netflix" : "Netflix'ten çıkış yap"}
         </div>
       </div>
     </div>

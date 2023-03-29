@@ -1,7 +1,7 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
-const Footer = () => {
+const Footer = ({ locale }: any) => {
   return (
     <footer className="bg-white dark:bg-gray-900">
       <div className="px-4 py-6 transition duration-500">
@@ -48,17 +48,21 @@ const Footer = () => {
             <ul className="text-gray-600 dark:text-gray-400 font-medium">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Sesli Betimleme
+                  {locale === "tr"
+                    ? "Sesli Betimlemeler"
+                    : "Audio Descriptions"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Yatırımcı İlişkileri
+                  {locale === "tr"
+                    ? "Yatırımcı İlişkileri"
+                    : "Investor Relations"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Yasal Hükümler
+                  {locale === "tr" ? "Yasal Hükümler" : "Legal Notices"}
                 </a>
               </li>
             </ul>
@@ -70,17 +74,17 @@ const Footer = () => {
             <ul className="text-gray-600 dark:text-gray-400 font-medium">
               <li className="mb-4">
                 <a href="#" className="hover:underline ">
-                  Yardım Merkezi
+                  {locale === "tr" ? "Yardım Merkezi" : "Help Center"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline ">
-                  İş İmkanları
+                  {locale === "tr" ? "İş İmkanları" : "Jobs"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline ">
-                  Çerez Tercihleri
+                  {locale === "tr" ? "Çerez Tercihleri" : "Cookie Preferences"}
                 </a>
               </li>
             </ul>
@@ -92,17 +96,19 @@ const Footer = () => {
             <ul className="text-gray-600 dark:text-gray-400 font-medium">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Hediye Kartları
+                  {locale === "tr" ? "Hediye Kartları" : "Gift Cards"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Kullanım Koşulları
+                  {locale === "tr" ? " Kullanım Koşulları" : "Terms of Use"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Kurumsal Bilgiler
+                  {locale === "tr"
+                    ? "  Kurumsal Bilgiler"
+                    : "Corporate Information"}
                 </a>
               </li>
             </ul>
@@ -114,17 +120,17 @@ const Footer = () => {
             <ul className="text-gray-600 dark:text-gray-400 font-medium">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Medya Merkezi
+                  {locale === "tr" ? "Medya Merkezi" : "Media Center"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Gizlilik
+                  {locale === "tr" ? " Gizlilik" : "Privacy"}
                 </a>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  Bize Ulaşın
+                  {locale === "tr" ? "Bize Ulaşın" : "Contact Us"}
                 </a>
               </li>
             </ul>
@@ -135,7 +141,7 @@ const Footer = () => {
             href="#"
             className="border-2 border-gray-400 p-2 cursor-pointer hover:underline"
           >
-            Hizmet Kodu
+            {locale === "tr" ? "Hizmet Kodu" : "Service Code"}
           </a>
         </div>
         {/* <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />*/}

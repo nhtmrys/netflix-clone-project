@@ -10,11 +10,14 @@ import InfoModal from "@/components/InfoModal";
 import useInfoModal from "@/hooks/useInfoModal";
 import Head from "next/head";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const { data: movies = [] } = useMovieList();
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
+  const router = useRouter();
+  const { locale } = router;
   return (
     <>
       <Head>
@@ -23,23 +26,32 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar movies={movies} />
-      <Billboard />
+      <Navbar locale={locale} movies={movies} />
+      <Billboard locale={locale} />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={movies} id={"trendings"} />
-        <MovieList title="My List" data={favorites} id={"my-list"} />
+        <MovieList
+          title={locale === "en" ? "Trending Now" : "Trendler"}
+          data={movies}
+          id={"trendings"}
+        />
+        <MovieList
+          title={locale === "en" ? "My List" : "Benim Listem"}
+          data={favorites}
+          id={"my-list"}
+        />
       </div>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }
 
 export async function getServerSideProps(context: NextPageContext) {
+  const { locale } = context;
   const session = await getSession(context);
   if (!session) {
     return {
       redirect: {
-        destination: "/login",
+        destination: `/${locale}/login`,
         permanent: false,
       },
     };

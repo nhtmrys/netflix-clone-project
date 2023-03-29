@@ -21,6 +21,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const Profiles = () => {
   const router = useRouter();
+  const { locale } = router;
   const { data: user } = useCurrentUser();
   const { isLoading: isLoading } = useCurrentUser();
   return (
@@ -38,15 +39,17 @@ const Profiles = () => {
           }}
         >
           {" "}
-          ← Sign Out
+          {locale === "en" ? "← Sign Out" : "← Çıkış Yap"}
         </h2>
 
         <div className="flex flex-col ">
-          <h1 className="text-3xl text-white text-center">Who is watching?</h1>
+          <h1 className="text-3xl text-white text-center">
+            {locale === "en" ? "Who is watching?" : "Kim izliyor?"}
+          </h1>
           <div className="flex items-center justify-center gap-8 mt-10">
             <div
               onClick={() => {
-                router.push("/");
+                router.push(locale === "en" ? "/" : "/tr/");
               }}
             >
               <div className="group flex-row w-44 mx-auto">

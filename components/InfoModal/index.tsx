@@ -4,6 +4,7 @@ import PlayButton from "@/components/PlayButton";
 import useInfoModal from "@/hooks/useInfoModal";
 import useMovie from "@/queryHooks/useMovie";
 import FavoriteButton from "@/components/FavoriteButton";
+import { useRouter } from "next/router";
 
 interface InfoModalProps {
   visible: boolean;
@@ -14,7 +15,8 @@ const InfoModal = ({ visible, onClose }: InfoModalProps) => {
   const [isVisible, setIsVisible] = useState(!!visible);
   const { movieId } = useInfoModal();
   const { data = {} } = useMovie(movieId);
-
+  const router = useRouter();
+  const { locale } = router;
   useEffect(() => {
     setIsVisible(!!visible);
   }, [visible]);
@@ -56,7 +58,11 @@ const InfoModal = ({ visible, onClose }: InfoModalProps) => {
                 {data?.title}
               </p>
               <div className="flex flex-row gap-4 items-center">
-                <PlayButton movieId={data?.id} />
+                <PlayButton
+                  router={router}
+                  locale={locale}
+                  movieId={data?.id}
+                />
                 <FavoriteButton movieId={data?.id} />
               </div>
             </div>
