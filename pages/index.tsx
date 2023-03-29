@@ -27,7 +27,7 @@ export default function Home() {
       </Head>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar locale={locale} movies={movies} />
-      <Billboard locale={locale} />
+      <Billboard router={router} locale={locale} />
       <div className="pb-40">
         <MovieList
           title={locale === "en" ? "Trending Now" : "Trendler"}
