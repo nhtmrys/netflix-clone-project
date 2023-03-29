@@ -23,7 +23,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
+      <Navbar movies={movies} />
       <Billboard />
       <div className="pb-40">
         <MovieList title="Trending Now" data={movies} id={"trendings"} />
