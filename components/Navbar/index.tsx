@@ -5,9 +5,11 @@ import MobileMenu from "@/components/MobileMenu";
 import AccountMenu from "@/components/AccountMenu";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import Link from "next/link";
+import NotificationModal from "@/components/NotificationModal";
 const TOP_OFFSET = 66;
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showNotificationMenu, setShowNotificationMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const { data: user } = useCurrentUser();
@@ -77,8 +79,12 @@ const Navbar = () => {
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
             <BsSearch />
           </div>
-          <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
+          <div
+            onClick={() => setShowNotificationMenu(!showNotificationMenu)}
+            className="text-gray-200 hover:text-gray-300 cursor-pointer transition"
+          >
             <BsBell />
+            <NotificationModal visible={showNotificationMenu} />
           </div>
           <div
             onClick={() => setShowAccountMenu(!showAccountMenu)}
