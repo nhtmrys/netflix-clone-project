@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import NavbarItem from "@/components/NavbarItem";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import MobileMenu from "@/components/MobileMenu";
@@ -6,10 +6,9 @@ import AccountMenu from "@/components/AccountMenu";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import Link from "next/link";
 import NotificationModal from "@/components/NotificationModal";
-import useMovieList from "@/queryHooks/useMovieList";
-import { array } from "prop-types";
-import { useRouter } from "next/router";
+
 const TOP_OFFSET = 66;
+
 interface MovieListProps {
   movies: Record<string, any>;
   locale: any;
@@ -20,8 +19,28 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
   const [showNotificationMenu, setShowNotificationMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleExpand = () => {
+    setIsExpanded(true);
+  };
+
+  const handleCollapse = () => {
+    setIsExpanded(false);
+  };
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      setShowNotificationMenu(false);
+      setShowAccountMenu(false);
+      setShowMobileMenu(false);
+    }
+  };
+
   const { data: user } = useCurrentUser();
 
   const escFunction = useCallback((event: any) => {
@@ -29,14 +48,17 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
       setShowAccountMenu(false);
       setShowMobileMenu(false);
       setShowNotificationMenu(false);
+      setFilteredData([]);
     }
   }, []);
 
   useEffect(() => {
     document.addEventListener("keydown", escFunction, false);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("keydown", escFunction, false);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [escFunction]);
 
@@ -122,22 +144,34 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
         </div>
         <div className="flex flex-row ml-auto gap-7 items-center">
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-            <div className="search-container">
-              <form>
-                <input
-                  className="search expandright"
-                  id="searchright"
-                  type="search"
-                  value={searchTerm}
-                  onChange={handleChange}
-                />
-                <label className="button searchbutton" htmlFor="searchright">
-                  <span className="mglass">&#9906;</span>
-                </label>
-              </form>
+            <div className="relative flex  items-center">
+              <span
+                className={`absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none  ${
+                  isExpanded ? "hidden" : ""
+                }`}
+              >
+                <BsSearch className="cursor-pointer " />
+              </span>
+              <input
+                type="text"
+                className={`${
+                  isExpanded
+                    ? " w-36 sm:w-64 transition-all duration-300 bg-gray-100 border-2 rounded-full"
+                    : "w-0 bg-transparent border-transparent outline-none"
+                } h-10 py-2 pl-10 cursor-pointer text-sm text-gray-900 placeholder-gray-500 rounded-full shadow-sm  transition-all duration-300 focus:ring-0 placeholder:text-[10px]`}
+                placeholder={
+                  locale === "tr"
+                    ? "Dizi veya film ara"
+                    : "Search for a movie or a series"
+                }
+                onFocus={handleExpand}
+                onBlur={handleCollapse}
+                onChange={handleChange}
+                autoComplete={"off"}
+              />
             </div>
             {filteredData.length > 0 && (
-              <div className="bg-black w-56 absolute top-20 right-16 sm:right-96 py-5 flex-col border-2 border-gray-500 flex">
+              <div className=" absolute top-14 w-64 py-2 bg-neutral-900 border border-gray-300 rounded-md shadow-lg">
                 <div className="flex flex-col gap-3">
                   {filteredData.map((filter: any, index) => (
                     <a key={index} href={`/watch/${filter.id}`}>
@@ -161,6 +195,7 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
           </div>
           <div
             onClick={() => setShowNotificationMenu(!showNotificationMenu)}
+            ref={ref}
             className="text-gray-200 hover:text-gray-300 cursor-pointer transition"
           >
             <BsBell />
@@ -168,6 +203,7 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
           </div>
           <div
             onClick={() => setShowAccountMenu(!showAccountMenu)}
+            ref={ref}
             className="flex flex-row items-center gap-2 cursor-pointer relative"
           >
             <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">

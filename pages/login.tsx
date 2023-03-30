@@ -72,7 +72,7 @@ export default function Login() {
             <img src="/images/logo.png" alt="Logo" className="h-12" />
             <div
               onClick={() => setShowLanguagePopup(!showLanguagePopup)}
-              className="text-white flex flex-row items-center gap-2 border-2 p-2 cursor-pointer"
+              className="text-white flex flex-row items-center gap-2 border-2 p-2 cursor-pointer relative"
             >
               <p>
                 <TbWorld />

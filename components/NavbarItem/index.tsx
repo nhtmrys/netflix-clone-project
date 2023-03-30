@@ -8,7 +8,6 @@ interface NavbarItemProps {
 }
 
 const NavbarItem = ({ label, hrefUrl, locale }: NavbarItemProps) => {
-  console.log("locale", locale, label);
   return (
     <Link
       href={hrefUrl}

@@ -11,7 +11,7 @@ const LanguageSelect = ({ visible, locale }: LanguageSelectProps) => {
   if (!visible) return null;
 
   return (
-    <div className=" w-24 absolute top-0 right-36 py-2 flex flex-col border-2 border-transparent rounded-xl flex bg-neutral-700">
+    <div className=" w-24 absolute top-4 right-0 right-0 py-2 flex flex-col border-2 border-transparent rounded-xl flex bg-neutral-700">
       {locale === "en" ? (
         <Link href="/login" locale={"tr"}>
           <div className="p-2">
