@@ -84,6 +84,7 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
         ? movie.title.match(regex) || movie.description.match(regex)
         : null;
     });
+    
     setFilteredData(filteredData);
   };
 
