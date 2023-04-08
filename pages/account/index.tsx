@@ -8,6 +8,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import {NextPageContext} from "next";
 import {getSession} from "next-auth/react";
 import Input from "@/components/Input";
+import Link from "next/link";
 
 
 export default function Account() {
@@ -134,9 +135,9 @@ export default function Account() {
                                     {user?.name}
                                 </a>
                             </div>
-                            <a href="/profiles" className="text-blue-600 cursor-pointer">
+                            <Link href="/profiles" className="text-blue-600 cursor-pointer">
                                 {locale==="en"?"Manage Profiles":"Profilleri yönet"}
-                            </a>
+                            </Link>
                             </div>
                             <hr className="border-2 my-10"/>
                         </div>
