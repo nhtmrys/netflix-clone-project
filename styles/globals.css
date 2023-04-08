@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    scroll-behavior: smooth;
+* {
+    @apply scroll-smooth;
 }
 
 body{
-    @apply bg-gray-900 h-full overflow-x-hidden;
+    @apply bg-gray-900 h-full overflow-x-hidden scroll-smooth;
 }
 #__next{
     @apply h-full;

@@ -12,9 +12,10 @@ const TOP_OFFSET = 66;
 interface MovieListProps {
   movies: Record<string, any>;
   locale: any;
+  sticky?: boolean;
 }
 
-const Navbar = ({ movies, locale }: MovieListProps) => {
+const Navbar = ({ movies, locale,sticky }: MovieListProps) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showNotificationMenu, setShowNotificationMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -29,7 +30,6 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
   const handleCollapse = () => {
     setIsExpanded(false);
   };
-  const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -76,8 +76,6 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
 
   const handleChange = (event: any) => {
     const searchValue = event.target.value;
-    setSearchTerm(searchValue);
-
     const filteredData = movies?.filter((movie: any) => {
       const regex = new RegExp(searchValue, "gi");
       return searchValue.length > 0
@@ -89,7 +87,7 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
   };
 
   return (
-    <nav className="w-full fixed z-40">
+    <nav className={`w-full z-40 ${sticky?"fixed":"absolute top-0"}`}>
       <div
         className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${
           showBackground ? "bg-zinc-900 bg-opacity-90" : ""
@@ -136,12 +134,12 @@ const Navbar = ({ movies, locale }: MovieListProps) => {
           onClick={() => setShowMobileMenu(!showMobileMenu)}
           className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative"
         >
-          <p className="text-white text-sm">Browse</p>
+          <p className="text-white text-sm">{locale==="en"?"Browse":"Gözat"}</p>
           <BsChevronDown
             className={`
         text-white transition ${showMobileMenu ? "rotate-180" : "rotate-0"}`}
           />
-          <MobileMenu visible={showMobileMenu} />
+          <MobileMenu locale={locale} visible={showMobileMenu} />
         </div>
         <div className="flex flex-row ml-auto gap-7 items-center">
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">

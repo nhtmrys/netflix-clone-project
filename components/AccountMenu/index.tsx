@@ -40,7 +40,7 @@ const AccountMenu = ({ visible, locale }: AccountMenuProps) => {
           </p>
         </Link>
         <Link
-          href="/help"
+          href="https://help.netflix.com/"
           className="px-3 group/item flex flex-row gap-3 items-center w-full"
         >
           <BiHelpCircle className="text-white w-8" />

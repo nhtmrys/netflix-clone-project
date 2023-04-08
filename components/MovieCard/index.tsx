@@ -9,9 +9,17 @@ interface MovieCardProps {
 }
 const MovieCard = ({ data }: MovieCardProps) => {
   const router = useRouter();
+
+  const ifIsMobile = () => {
+    if (window.innerWidth < 768) {
+      router.push(`/watch/${data?.id}`);
+    }
+  }
+
+
   const { openModal } = useInfoModal();
   return (
-    <div className="group bg-zinc-900 col-span relative  h-full sm:h-[12vw]">
+    <div className="group bg-zinc-900 col-span relative h-full sm:h-[12vw]" onClick={()=>(ifIsMobile())}>
       <img
         className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:shadow-2xl w-full delay h-full sm:h-[12vw]"
         src={data.thumbnailUrl}
@@ -29,9 +37,9 @@ const MovieCard = ({ data }: MovieCardProps) => {
         <div className="z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
           <div className="flex flex-row items-center gap-3">
             <div
-              onClick={() => {
-                router.push(`/watch/${data.id}`);
-              }}
+                onClick={() => {
+                  router.push(`/watch/${data.id}`);
+                }}
               className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center items-center transition hover:bg-neutral-300"
             >
               <BsFillPlayFill />
@@ -51,7 +59,6 @@ const MovieCard = ({ data }: MovieCardProps) => {
           </div>
           <div className="flex flex-row gap-2 mt-2">
             <span className="text-white">{data?.title}</span>
-            <span className="text-white p-[0.5px] border-[1px]">18+</span>
           </div>
 
           {data?.year >= 2023 ? (

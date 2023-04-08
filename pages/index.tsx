@@ -26,7 +26,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar locale={locale} movies={movies} />
+      <Navbar locale={locale} movies={movies} sticky={true} />
       <Billboard router={router} locale={locale} />
       <div className="pb-40">
         <MovieList

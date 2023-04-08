@@ -22,7 +22,6 @@ export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [variant, setVariant] = useState("login");
-  const [error, setError] = useState("");
   const [showLanguagePopup, setShowLanguagePopup] = useState(false);
 
   //burayı iyi anlamadım
